@@ -38,6 +38,10 @@ def handle_remember_city(message):
 def handle_show_visited_cities(message):
     cities = manager.select_cities(message.chat.id)
     # Реализуй отрисовку всех городов
+    filename = f"b{message.chat.id}.jpg"
+    manager.create_grapf(filename, cities)
+    file = open(filename, "rb")
+    bot.send_photo(message.chat.id, photo=file)
 
 
 if __name__=="__main__":
