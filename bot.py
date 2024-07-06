@@ -24,7 +24,6 @@ def handle_show_city(message):
     file = open(filename, "rb")
     bot.send_photo(message.chat.id, photo=file)
 
-
 @bot.message_handler(commands=['remember_city'])
 def handle_remember_city(message):
     user_id = message.chat.id
@@ -33,6 +32,18 @@ def handle_remember_city(message):
         bot.send_message(message.chat.id, f'Город {city_name} успешно сохранен🥳!')
     else:
         bot.send_message(message.chat.id, 'Такого города я не знаю😐. Убедись, что он написан на английском🧐!')
+
+@bot.message_handler(commands=['population'])
+def send_population(message):
+    # Разбиваем сообщение на части для извлечения названия города
+    parts = message.text.split()
+    if len(parts) < 2:
+        bot.reply_to(message, "Пожалуйста, укажите название города после команды /population")
+        return
+    
+    city_name = parts[1]
+    population = manager.get_population(city_name)
+    bot.reply_to(message, f"Город: **{city_name}**, Население: **{population}**")
 
 @bot.message_handler(commands=['show_my_cities'])
 def handle_show_visited_cities(message):
