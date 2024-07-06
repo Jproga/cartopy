@@ -71,6 +71,31 @@ class DB_Map():
             plt.text(lat + 3, lon + 12, city, horizontalalignment='left', transform=ccrs.Geodetic())
         
         plt.savefig(path)
+
+    def get_population(user_id,city_name):
+        # Подключаемся к базе данных
+        conn = sqlite3.connect('database.db')
+        cursor = conn.cursor()
+        
+        # Создаем запрос к базе данных
+        query = "SELECT population FROM cities WHERE city = ?"
+        
+        # Выполняем запрос
+        cursor.execute(query, (city_name,))
+        
+        # Получаем результат
+        result = cursor.fetchone()
+        
+        # Закрываем соединение с базой данных
+        conn.close()
+        
+        # Проверяем, есть ли результат
+        if result:
+            return result[0]
+        else:
+            return "Население не найдено"
+        
+        
     def draw_distance(self, city1, city2):
         pass
 
