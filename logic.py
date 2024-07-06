@@ -76,7 +76,7 @@ class DB_Map():
 
 
 if __name__=="__main__":
-    
     m = DB_Map(DATABASE)
     m.create_user_table()
-    m.create_grapf('test.jpg', ['moscow','New York'])
+    print('Hello world')
+    m.create_grapf('test.jpg', ['Moscow','New York'])
